@@ -11,7 +11,6 @@
 | `在岗学习/` | Framework 实战：开机流程、AOSP 源码导读、锁屏闪屏、Overlay、Edge-to-Edge |
 | `每日力扣/` | LeetCode 刷题记录 |
 | `享学android一期/` | 早期课程笔记 |
-| `_预览/` | 本地预览工具（把 md 渲染成网页） |
 | `.修订记录/` | 各文档的整理/勘误过程 |
 
 根目录还有：`学习计划.md`、`Android-Framework-地图.md`、`虚拟机SSH连接说明.md`。
