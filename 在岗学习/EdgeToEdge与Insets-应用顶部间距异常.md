@@ -1,7 +1,7 @@
-# Edge-to-Edge 与 Insets：应用顶部间距为什么变大
+﻿# Edge-to-Edge 与 Insets：应用顶部间距为什么变大
 
 > 用途：搞清「应用内容顶部该留多少白、由谁留」。这是 **框架和应用的职责边界** 问题——edge-to-edge 之后边界变了，很多间距问题都从这里长出来。
-> 挂载：[Android-Framework-地图](../Android-Framework-地图.md) → **WMS（窗口 / Insets / DisplayPolicy）** + PMS（targetSdk 判定）
+> 挂载：[Android-Framework-地图](../android学习/Android-Framework-地图.md) → **WMS（窗口 / Insets / DisplayPolicy）** + PMS（targetSdk 判定）
 > 脱敏说明：文中用「应用 A / 应用 B」代指具体应用，不写包名白名单，不贴公司 patch 原文。
 
 ---

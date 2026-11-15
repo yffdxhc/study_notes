@@ -7,13 +7,13 @@
 | 目录 | 内容 |
 |---|---|
 | `408/` | 考研 408 · C 语言（第 1~4 章笔记 + 每章速记） |
-| `android学习/` | 《Android 面试必问：AMS、WMS 核心原理》13 讲笔记 + 速记 |
+| `android学习/` | [Android-Framework-地图.md](android学习/Android-Framework-地图.md)（知识地图）+《Android 面试必问：AMS、WMS 核心原理》13 讲笔记 + 速记 |
 | `在岗学习/` | Framework 实战：开机流程、AOSP 源码导读、锁屏闪屏、Overlay、Edge-to-Edge |
 | `每日力扣/` | LeetCode 刷题记录 |
 | `享学android一期/` | 早期课程笔记 |
 | `.修订记录/` | 各文档的整理/勘误过程 |
 
-根目录还有：`学习计划.md`、`Android-Framework-地图.md`、`虚拟机SSH连接说明.md`。
+根目录还有：`学习计划.md`、`虚拟机SSH连接说明.md`。
 
 ## 为什么 `.photo/` 不在仓库里
 

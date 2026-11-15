@@ -1,8 +1,8 @@
-# Android 开机流程：从 BootROM 到桌面
+﻿# Android 开机流程：从 BootROM 到桌面
 
 > 整理：2026-10-20 ｜ 校对：2026-10-21
 >
-> 本文挂在 [Android-Framework-地图.md](../Android-Framework-地图.md) 的「系统启动主线：init → Zygote → SystemServer」节点上。
+> 本文挂在 [Android-Framework-地图.md](../android学习/Android-Framework-地图.md) 的「系统启动主线：init → Zygote → SystemServer」节点上。
 
 ---
 

@@ -1,7 +1,7 @@
-# Overlay 与配置：多机型共软件的差异化怎么做
+﻿# Overlay 与配置：多机型共软件的差异化怎么做
 
 > 用途：搞清「**同一套软件、不同硬件参数**」这件事，AOSP 提供了哪几层机制，以及客制化是怎么把它们收口的。
-> 挂载：[Android-Framework-地图](../Android-Framework-地图.md) → **PMS（overlay 挂载）/ 资源系统（Resources）/ 启动（property）**
+> 挂载：[Android-Framework-地图](../android学习/Android-Framework-地图.md) → **PMS（overlay 挂载）/ 资源系统（Resources）/ 启动（property）**
 > 脱敏说明：文中用「**项目 A / 项目 B**」代指具体机型，用 `vendor.` 前缀代指厂商命名空间。实际对应关系记在本地，不进网盘。
 
 ---
