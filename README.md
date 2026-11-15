@@ -10,7 +10,7 @@
 | `android学习/` | [Android-Framework-地图.md](android学习/Android-Framework-地图.md)（知识地图）+《Android 面试必问：AMS、WMS 核心原理》13 讲笔记 + 速记 |
 | `在岗学习/` | Framework 实战：开机流程、AOSP 源码导读、锁屏闪屏、Overlay、Edge-to-Edge |
 | `每日力扣/` | LeetCode 刷题记录 |
-| `享学android一期/` | 早期课程笔记 |
+| `辅助稿/` | [口误表](辅助稿/口误表.md)（ASR 勘误）+ [术语表](辅助稿/术语表.md)（易混词对照） |
 | `.修订记录/` | 各文档的整理/勘误过程 |
 
 根目录还有：`学习计划.md`、`虚拟机SSH连接说明.md`。

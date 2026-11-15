@@ -3,14 +3,14 @@
 > **逐字稿**：`C:\Users\18369\Documents\ZhuangFengYuan\Android面试必问：AMS、WMS核心原理全解析\Android面试必问_AMS、WMS核心原理全解析 - P6 6.Activity的生命周期和栈的管理.doc`
 > 上一讲：[05 Activity 的启动流程](05-Activity的启动流程.md)
 > 导读：[00 导读与规范](../00-导读与规范.md)
-> **值得回看**：老师**在白板画生命周期管理的类图**（ClientLifecycleManager → [ClientTransaction](../00-术语表.md#clienttransaction) → Item），以及现场跑 `dumpsys activity` 看栈信息
+> **值得回看**：老师**在白板画生命周期管理的类图**（ClientLifecycleManager → [ClientTransaction](../../../辅助稿/术语表.md#clienttransaction) → Item），以及现场跑 `dumpsys activity` 看栈信息
 > ⚠️ **文稿口误**：`ActivityThread` → 「activity s read / activity three」；`ActivityStack` → 「DVD start / 账 / 站」；`dumpsys` → 「doubles / dumper」；`ResumeActivityItem` → 「racial activation item / ration activity item」
 
 ---
 
 ## 这一讲讲什么
 
-上半讲：**[AMS](../00-术语表.md#ams-atm) 拿到 `ApplicationThread` 之后，怎么把 `onCreate/onStart/onResume` 推过来执行**（生命周期管理的类图）。
+上半讲：**[AMS](../../../辅助稿/术语表.md#ams-atm) 拿到 `ApplicationThread` 之后，怎么把 `onCreate/onStart/onResume` 推过来执行**（生命周期管理的类图）。
 
 下半讲：**栈管理**（`ActivityRecord` / `Task` / `ActivityStack`），以及怎么用 `dumpsys activity` 看它。
 
@@ -51,7 +51,7 @@ TransactionExecutor.execute(transaction)
 
 ### 2.1 一个版本变更点
 
-> **Android 9 起，这块 [Handler](../00-术语表.md#handler) 流程用「状态模式」重写了** —— 不同状态对应不同处理方法。
+> **Android 9 起，这块 [Handler](../../../辅助稿/术语表.md#handler) 流程用「状态模式」重写了** —— 不同状态对应不同处理方法。
 
 ---
 
@@ -156,7 +156,7 @@ adb shell dumpsys activity
 | 以为 `ClientTransaction` 只能装一个 item | 它可以**装多个** |
 | 以为 `TaskRecord` 一直叫这名字 | **Android 11 起叫 `Task`** |
 | 把 `ActivityRecord` 和 `Activity` 当同一个 | ActivityRecord 是它在 **AMS 里的记录对象** |
-| 以为生命周期是 AMS 直接调用的 | 中间经 **[Binder](../00-术语表.md#binder) → Handler → TransactionExecutor** 一转手 |
+| 以为生命周期是 AMS 直接调用的 | 中间经 **[Binder](../../../辅助稿/术语表.md#binder) → Handler → TransactionExecutor** 一转手 |
 
 ---
 

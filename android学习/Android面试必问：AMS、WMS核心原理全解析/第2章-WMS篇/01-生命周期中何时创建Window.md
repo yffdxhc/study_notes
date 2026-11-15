@@ -36,10 +36,10 @@
 
 | 在哪里看 | 看到什么 |
 |---|---|
-| `ApplicationThread`（[Binder](../00-术语表.md#binder) 服务） | 一大堆 `handleXxx` 方法：`handleLaunchActivity`、`handleResumeActivity`… |
+| `ApplicationThread`（[Binder](../../../辅助稿/术语表.md#binder) 服务） | 一大堆 `handleXxx` 方法：`handleLaunchActivity`、`handleResumeActivity`… |
 | `ApplicationThread` 里还有 | `ApplicationThread` 的 handler 处理生命周期消息 |
 
-> 所以第 1 章讲的那条"[AMS](../00-术语表.md#ams-atm) 通过 `ApplicationThread` 驱动生命周期"的线，**落到应用进程就是"发了一条消息"**。
+> 所以第 1 章讲的那条"[AMS](../../../辅助稿/术语表.md#ams-atm) 通过 `ApplicationThread` 驱动生命周期"的线，**落到应用进程就是"发了一条消息"**。
 
 ### 2.2 这一讲的入口消息：`handleLaunchActivity`
 
@@ -116,9 +116,9 @@ setContentView()
 | 时机 | 谁被创建 | View 有了吗 |
 |---|---|---|
 | `performLaunchActivity` → 类加载 | **Activity 对象** | ❌ |
-| **`activity.attach()`** | **[PhoneWindow](../00-术语表.md#window) + WindowManager** | ❌ **还没有 View** |
-| `onCreate()` → **`setContentView()`** | **视图树（[DecorView](../00-术语表.md#decorview-contentview)/ContentView）** | ✅ 有了 |
-| `onResume` 之后（第 2、3 讲） | **[ViewRootImpl](../00-术语表.md#viewrootimpl)**（真正连到 WMS） | ✅ + 开始 measure/layout/draw |
+| **`activity.attach()`** | **[PhoneWindow](../../../辅助稿/术语表.md#window) + WindowManager** | ❌ **还没有 View** |
+| `onCreate()` → **`setContentView()`** | **视图树（[DecorView](../../../辅助稿/术语表.md#decorview-contentview)/ContentView）** | ✅ 有了 |
+| `onResume` 之后（第 2、3 讲） | **[ViewRootImpl](../../../辅助稿/术语表.md#viewrootimpl)**（真正连到 WMS） | ✅ + 开始 measure/layout/draw |
 
 > **一句话**：**Window 在 `attach` 就有，View 在 `setContentView` 才有，真正上屏要等 `ViewRootImpl`。**
 
@@ -154,7 +154,7 @@ setContentView()
 | 以为 `setContentView` 才创建 Window | **`attach()` 里就 `new PhoneWindow()` 了**，比 `onCreate` 还早 |
 | 以为 `attach` 里会加载布局 | `attach` **只创建 Window + 设 WindowManager**，不碰布局 |
 | 以为 `onCreate` 里就有 View | 要等 `setContentView` **执行完**才有 |
-| 以为生命周期是直接函数调用 | 每一条都是 **[Handler](../00-术语表.md#handler) 的消息** |
+| 以为生命周期是直接函数调用 | 每一条都是 **[Handler](../../../辅助稿/术语表.md#handler) 的消息** |
 | 以为 WMS 引用是后面才拿的 | `handleLaunchActivity` **一开始**就初始化了 |
 
 ---

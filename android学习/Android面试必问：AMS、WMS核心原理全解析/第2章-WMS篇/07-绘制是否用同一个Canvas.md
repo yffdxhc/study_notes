@@ -1,4 +1,4 @@
-﻿# 07 绘制用的是同一个 [Canvas](../00-术语表.md#surface-canvas) 吗
+﻿# 07 绘制用的是同一个 [Canvas](../../../辅助稿/术语表.md#surface-canvas) 吗
 
 > **逐字稿**：`C:\Users\18369\Documents\ZhuangFengYuan\Android面试必问：AMS、WMS核心原理全解析\Android面试必问_AMS、WMS核心原理全解析 - P13 7.View 的绘制过程中用的是同一个canvas吗_.doc`
 > 上一讲：[06 Handler 如何消化 UI 刷新消息](06-Handler如何消化UI刷新消息.md)
@@ -58,7 +58,7 @@
 | 后果 | 说明 |
 |---|---|
 | **`canvas.save()` / `restore()` 必须配对** | 因为大家都在同一块画布上操作状态（平移/旋转/裁剪），**你不还原，后面的 View 就跟着歪** |
-| **`lockCanvas()` / `unlockCanvasAndPost()` 必须配对** | 锁住的是**这块 [Surface](../00-术语表.md#surface-canvas) 的绘制缓冲区**，不解锁画面就出不来 |
+| **`lockCanvas()` / `unlockCanvasAndPost()` 必须配对** | 锁住的是**这块 [Surface](../../../辅助稿/术语表.md#surface-canvas) 的绘制缓冲区**，不解锁画面就出不来 |
 
 > 这也是自定义 View 里最常见的两个 bug 来源。
 

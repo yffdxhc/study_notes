@@ -1,4 +1,4 @@
-﻿# 04 [ATM](../00-术语表.md#ams-atm) 和 [AMS](../00-术语表.md#ams-atm) 的启动流程
+﻿# 04 [ATM](../../../辅助稿/术语表.md#ams-atm) 和 [AMS](../../../辅助稿/术语表.md#ams-atm) 的启动流程
 
 > **逐字稿**：`C:\Users\18369\Documents\ZhuangFengYuan\Android面试必问：AMS、WMS核心原理全解析\Android面试必问_AMS、WMS核心原理全解析 - P4 4.ATM和AMS的启动流程.doc`
 > 上一讲：[03 system_server 进程的创建](03-system_server进程的创建.md)｜下一讲：[05 Activity 的启动流程](05-Activity的启动流程.md)
@@ -126,7 +126,7 @@ ServiceManager.addService(Context.ACTIVITY_SERVICE, this);   // 注册自己
 //   dbinfo   → dumpsys dbinfo
 ```
 
-**顺带的三个 [Binder](../00-术语表.md#binder) 服务都是干嘛的**：
+**顺带的三个 [Binder](../../../辅助稿/术语表.md#binder) 服务都是干嘛的**：
 
 | 服务 | 用途 |
 |---|---|

@@ -3,7 +3,7 @@
 > **逐字稿**：`C:\Users\18369\Documents\ZhuangFengYuan\Android面试必问：AMS、WMS核心原理全解析\Android面试必问_AMS、WMS核心原理全解析 - P5 5.Activity的启动流程.doc`
 > 上一讲：[04 ATM 和 AMS 的启动流程](04-ATM和AMS的启动流程.md)｜下一讲：[06 Activity 的生命周期和栈管理](06-Activity的生命周期和栈管理.md)
 > 导读：[00 导读与规范](../00-导读与规范.md)
-> **值得回看**：老师在源码里从 `ActivityThread.main` 一路点到 `attachApplication`，讲"为什么 [AMS](../00-术语表.md#ams-atm) 必须等应用主动上户口"，还有他答这道面试题时的**完整口述版**
+> **值得回看**：老师在源码里从 `ActivityThread.main` 一路点到 `attachApplication`，讲"为什么 [AMS](../../../辅助稿/术语表.md#ams-atm) 必须等应用主动上户口"，还有他答这道面试题时的**完整口述版**
 > ⚠️ **文稿口误**：`ActivityThread` → 「activity three / activity s read / activity item」；`ApplicationThread` → 「application three」；`Binder` → 「band/ban」；`Zygote` → 「摘要/摘口的」
 
 ---
@@ -92,13 +92,13 @@ Instrumentation.execStartActivity()      ← 这里是"真正要去求系统了"
 | 版本 | 目标 |
 |---|---|
 | **Android 9 及之前** | **AMS**.`startActivity()` |
-| **Android 9 之后**（含 10/11） | **[ATM](../00-术语表.md#ams-atm)**（`ActivityTaskManagerService`）`.startActivity()` |
+| **Android 9 之后**（含 10/11） | **[ATM](../../../辅助稿/术语表.md#ams-atm)**（`ActivityTaskManagerService`）`.startActivity()` |
 
 **两个必须说出来的点**：
 
 | 点 | 说明 |
 |---|---|
-| **这是跨进程调用** | 用 **[Binder](../00-术语表.md#binder)** |
+| **这是跨进程调用** | 用 **[Binder](../../../辅助稿/术语表.md#binder)** |
 | **AMS/ATM 是怎么拿到的** | 通过 **`ServiceManager`** 获取 —— 这里用了**代理模式**（拿到的是 Binder 代理对象） |
 
 > 老师借这个点延伸：**面试问设计模式，能答"源码里哪儿用了"比背定义值钱**。
@@ -226,6 +226,6 @@ attachApplication(mAppThread)              // 把 Binder 交给 AMS
 
 ## 一句话记忆
 
-> **startActivity → Instrumentation.execStartActivity →（Binder）AMS/ATM → 判进程在不在 → 不在就让 socket 通知 zygote fork → 新进程反射跑 ActivityThread.main → attachApplication 交出 [ApplicationThread](../00-术语表.md#attachapplication) → AMS 驱动生命周期。**
+> **startActivity → Instrumentation.execStartActivity →（Binder）AMS/ATM → 判进程在不在 → 不在就让 socket 通知 zygote fork → 新进程反射跑 ActivityThread.main → attachApplication 交出 [ApplicationThread](../../../辅助稿/术语表.md#attachapplication) → AMS 驱动生命周期。**
 >
 > **面试只答 6 点：统一入口 / Instrumentation / 跨进程进 AMS·ATM（9 是分界） / 判进程 / socket 找 zygote / 应用主动上户口。**
