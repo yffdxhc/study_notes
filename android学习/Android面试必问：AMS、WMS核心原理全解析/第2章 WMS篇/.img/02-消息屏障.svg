@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="560" viewBox="0 0 880 560" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif">
+  <defs>
+    <marker id="g1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2f8a6d"/>
+    </marker>
+    <marker id="r1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect width="880" height="560" fill="#ffffff"/>
+  <text x="440" y="32" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a1a1a">UI 刷新怎么插队：消息屏障（sync barrier）</text>
+  <text x="440" y="54" text-anchor="middle" font-size="12" fill="#777">MessageQueue 里，屏障挡住同步消息，只放行异步消息</text>
+
+  <!-- queue label -->
+  <text x="60" y="112" font-size="13" font-weight="bold" fill="#1a1a1a">MessageQueue（队头 → 队尾）</text>
+
+  <!-- queue segments -->
+  <rect x="60" y="128" width="120" height="56" rx="6" fill="#f2f2f2" stroke="#aaa" stroke-width="1.2"/>
+  <text x="120" y="152" text-anchor="middle" font-size="12" fill="#333">同步消息 A</text>
+  <text x="120" y="170" text-anchor="middle" font-size="10.5" fill="#888">已执行</text>
+
+  <rect x="190" y="128" width="120" height="56" rx="6" fill="#f2f2f2" stroke="#aaa" stroke-width="1.2"/>
+  <text x="250" y="152" text-anchor="middle" font-size="12" fill="#333">同步消息 B</text>
+  <text x="250" y="170" text-anchor="middle" font-size="10.5" fill="#888">已执行</text>
+
+  <!-- barrier -->
+  <rect x="320" y="112" width="30" height="88" rx="4" fill="#fdeaea" stroke="#c0392b" stroke-width="2"/>
+  <text x="335" y="104" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">屏障</text>
+
+  <!-- async traversal -->
+  <rect x="360" y="128" width="200" height="56" rx="6" fill="#e6f7f1" stroke="#2f8a6d" stroke-width="1.8"/>
+  <text x="460" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">异步：doTraversal</text>
+  <text x="460" y="170" text-anchor="middle" font-size="10.5" fill="#1f6b55">measure / layout / draw</text>
+
+  <rect x="570" y="128" width="130" height="56" rx="6" fill="#f2f2f2" stroke="#aaa" stroke-width="1.2" stroke-dasharray="5,3"/>
+  <text x="635" y="152" text-anchor="middle" font-size="12" fill="#666">同步消息 C</text>
+  <text x="635" y="170" text-anchor="middle" font-size="10.5" fill="#c0392b">被挡住</text>
+
+  <rect x="710" y="128" width="120" height="56" rx="6" fill="#f2f2f2" stroke="#aaa" stroke-width="1.2" stroke-dasharray="5,3"/>
+  <text x="770" y="152" text-anchor="middle" font-size="12" fill="#666">你 post 的</text>
+  <text x="770" y="170" text-anchor="middle" font-size="10.5" fill="#c0392b">也被挡住</text>
+
+  <!-- looper take -->
+  <line x1="60" y1="228" x2="830" y2="228" stroke="#2f8a6d" stroke-width="2" marker-end="url(#g1)"/>
+  <text x="440" y="222" text-anchor="middle" font-size="12" fill="#2f8a6d">Looper.loop() 从队头取消息 → 遇到屏障：同步的跳过，异步的放过</text>
+
+  <!-- 结果说明 -->
+  <rect x="60" y="262" width="770" height="106" rx="6" fill="#fafafa" stroke="#ddd" stroke-width="1"/>
+  <text x="76" y="284" font-size="13" font-weight="bold" fill="#1a1a1a">所以三种写法的结果不一样</text>
+  <text x="76" y="306" font-size="12" fill="#333">· handler.post(...)　　　→ 排在遍历之前，拿到 <tspan fill="#c0392b" font-weight="bold">0</tspan>（要量的东西还没量）</text>
+  <text x="76" y="326" font-size="12" fill="#333">· handler.postDelayed(...) → 延迟够长，等遍历跑完 → <tspan fill="#2f8a6d" font-weight="bold">有值</tspan></text>
+  <text x="76" y="346" font-size="12" fill="#333">· view.post(...)　　　　 → View 自己维护队列，attach 时合并 → 先后关系天然正确 → <tspan fill="#2f8a6d" font-weight="bold">有值</tspan></text>
+
+  <!-- why -->
+  <rect x="60" y="390" width="770" height="88" rx="6" fill="#fff5f5" stroke="#e8b4b4" stroke-width="1"/>
+  <text x="76" y="412" font-size="13" font-weight="bold" fill="#9b3b3b">为什么 UI 刷新要用屏障</text>
+  <text x="76" y="434" font-size="12" fill="#333">· 保证一次遍历（measure/layout/draw）<tspan font-weight="bold">不被打断、不被别的消息插队</tspan></text>
+  <text x="76" y="454" font-size="12" fill="#333">· 这也是 60Hz 屏幕「每 16.7ms 一帧」的节奏能被保证的原因之一</text>
+
+  <text x="440" y="516" text-anchor="middle" font-size="11" fill="#999">笔记：第2章 WMS篇 / 06 Handler如何消化UI刷新消息</text>
+  <text x="440" y="538" text-anchor="middle" font-size="10.5" fill="#bbb">注：屏障细节老师在 Handler 专题课细讲，本页只画结论级关系</text>
+</svg>

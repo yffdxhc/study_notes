@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="720" viewBox="0 0 880 720" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif">
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#555"/>
+    </marker>
+    <marker id="ab" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect width="880" height="720" fill="#ffffff"/>
+  <text x="440" y="30" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a1a1a">Activity 启动流程（面试答这 6 步就够）</text>
+
+  <!-- lanes -->
+  <rect x="70" y="52" width="200" height="40" rx="6" fill="#e8eefc" stroke="#6b8fd6" stroke-width="1.5"/>
+  <text x="170" y="78" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">应用进程</text>
+
+  <rect x="330" y="52" width="160" height="40" rx="6" fill="#e6f7f1" stroke="#4aa88a" stroke-width="1.5"/>
+  <text x="410" y="78" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">zygote</text>
+
+  <rect x="600" y="52" width="220" height="40" rx="6" fill="#fdeaea" stroke="#d97a7a" stroke-width="1.5"/>
+  <text x="710" y="78" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">system_server</text>
+
+  <!-- lifelines -->
+  <line x1="170" y1="92" x2="170" y2="660" stroke="#bbb" stroke-width="1" stroke-dasharray="5,4"/>
+  <line x1="410" y1="92" x2="410" y2="660" stroke="#bbb" stroke-width="1" stroke-dasharray="5,4"/>
+  <line x1="710" y1="92" x2="710" y2="660" stroke="#bbb" stroke-width="1" stroke-dasharray="5,4"/>
+
+  <!-- 1 self call app -->
+  <rect x="60" y="104" width="420" height="34" rx="5" fill="#f7f9ff" stroke="#6b8fd6" stroke-width="1"/>
+  <text x="74" y="126" font-size="12.5" fill="#1a1a1a">① Activity.startActivity → Instrumentation.execStartActivity</text>
+
+  <!-- 2 binder to SS -->
+  <line x1="170" y1="158" x2="700" y2="158" stroke="#c0392b" stroke-width="2" marker-end="url(#ab)"/>
+  <text x="435" y="151" text-anchor="middle" font-size="12.5" fill="#c0392b">② Binder 跨进程：AMS / ATM . startActivity</text>
+
+  <!-- 3 judge -->
+  <rect x="520" y="176" width="360" height="40" rx="5" fill="#fff5f5" stroke="#d97a7a" stroke-width="1"/>
+  <text x="534" y="194" font-size="12.5" fill="#1a1a1a">③ 判断：目标 Activity 所在进程</text>
+  <text x="534" y="210" font-size="12" fill="#9b3b3b">存在 → 直接跳到 ⑤　　不存在 → 走 ④</text>
+
+  <!-- 4 socket to zygote -->
+  <line x1="700" y1="240" x2="420" y2="240" stroke="#c0392b" stroke-width="2" marker-end="url(#ab)"/>
+  <text x="560" y="233" text-anchor="middle" font-size="12.5" fill="#c0392b">④ 用 socket 通知（不是 Binder）</text>
+
+  <!-- 5 fork -->
+  <rect x="300" y="258" width="220" height="34" rx="5" fill="#f2fdf9" stroke="#4aa88a" stroke-width="1"/>
+  <text x="314" y="280" font-size="12.5" fill="#1a1a1a">fork 出新进程</text>
+
+  <!-- 6 main -->
+  <line x1="410" y1="312" x2="180" y2="312" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+  <text x="295" y="305" text-anchor="middle" font-size="12.5" fill="#1a1a1a">反射执行 ActivityThread.main()</text>
+
+  <!-- 7 attach -->
+  <line x1="170" y1="348" x2="700" y2="348" stroke="#c0392b" stroke-width="2" marker-end="url(#ab)"/>
+  <text x="435" y="341" text-anchor="middle" font-size="12.5" fill="#c0392b">⑤ attachApplication(ApplicationThread) ← 应用主动"上户口"</text>
+
+  <!-- 8 realstart -->
+  <rect x="520" y="366" width="360" height="40" rx="5" fill="#fff5f5" stroke="#d97a7a" stroke-width="1"/>
+  <text x="534" y="384" font-size="12.5" fill="#1a1a1a">realStartActivityLocked → scheduleTransaction</text>
+  <text x="534" y="400" font-size="12" fill="#9b3b3b">此时 AMS 手里有 IApplicationThread，能反向调用</text>
+
+  <!-- 9 drive lifecycle -->
+  <line x1="700" y1="430" x2="180" y2="430" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+  <text x="440" y="423" text-anchor="middle" font-size="12.5" fill="#1a1a1a">⑥ ClientTransaction 下发（LaunchActivityItem / ResumeActivityItem）</text>
+
+  <!-- 10 lifecycle -->
+  <rect x="60" y="448" width="300" height="34" rx="5" fill="#f7f9ff" stroke="#6b8fd6" stroke-width="1"/>
+  <text x="74" y="470" font-size="12.5" fill="#1a1a1a">onCreate → onStart → onResume</text>
+
+  <!-- version note -->
+  <rect x="60" y="530" width="760" height="68" rx="6" fill="#fafafa" stroke="#ddd" stroke-width="1"/>
+  <text x="76" y="552" font-size="12.5" font-weight="bold" fill="#1a1a1a">两个版本节点（面试常追问）</text>
+  <text x="76" y="572" font-size="12" fill="#333">· ② 的目标：Android 9 及之前 → AMS；Android 9 之后 → ATM（ActivityTaskManagerService）</text>
+  <text x="76" y="590" font-size="12" fill="#333">· ④ 用 socket 而不是 Binder：Binder 是多线程机制，fork 只复制当前线程 → 锁解不开 → 死锁</text>
+
+  <text x="440" y="676" text-anchor="middle" font-size="11" fill="#999">笔记：第1章 AMS篇 / 05 Activity的启动流程</text>
+  <text x="440" y="698" text-anchor="middle" font-size="11" fill="#999">关键：④ 进程不存在时才 fork；⑤ 拿不到 ApplicationThread 就驱动不了生命周期</text>
+</svg>

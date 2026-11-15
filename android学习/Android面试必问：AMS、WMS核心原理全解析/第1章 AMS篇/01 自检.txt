@@ -1,0 +1,19 @@
+Android启动链路:一层fork一层(AMS和WMS都住在system_server里)：
+1、按下电源键，上电
+2、引导芯片执行ROM里的固化代码(ROM 约等于 硬盘:断电不丢)
+3、bootloader被搬进RAM并执行(RAM 约等于 内存:断电就丢，所以要先搬)
+4、kernel启动(Linux；fork下一层)
+5、init PIS=1(用户空间鼻祖:第一个开辟用户空间的进程；fork下一层)
+6、zygote 孵化器/受精卵(java进程鼻祖:靠fork不断分裂；fork下一层)
+7、system_server(大儿子；启动AMS/WMS/PKMS等近百个服务)；8、App进程(同样由 zygote fork 出来)
+init 负责系统仆从(kthreadd等)；zygote 负责 fork 出 java进程——工厂与服务分开
+
+四层，逐层fork:
+1层 int(PID 1) 生了 kthreadd(不用管)、zygote
+2层 zygote 生了 system_server、App进程
+3层 system_server 生了 AMS/WMS/PKMS等近百个服务(这些不是进程，是服务)
+4层 App进程 跑你的Activity
+工厂(zygote)负责fork;服务宿主(system_server)复制装服务。两者分工
+
+
+

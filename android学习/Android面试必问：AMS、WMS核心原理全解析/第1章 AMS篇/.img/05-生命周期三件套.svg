@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="520" viewBox="0 0 840 520" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif">
+  <defs>
+    <marker id="m1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#666"/>
+    </marker>
+  </defs>
+  <rect width="840" height="520" fill="#ffffff"/>
+  <text x="420" y="32" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a1a1a">生命周期靠"一张事务单"下发</text>
+  <text x="420" y="54" text-anchor="middle" font-size="12" fill="#777">AMT 侧打包 → 跨进程 → 应用侧执行，谁触发哪个回调看 Item 类型</text>
+
+  <!-- layer 1 -->
+  <rect x="290" y="76" width="260" height="42" rx="7" fill="#e8eefc" stroke="#6b8fd6" stroke-width="1.4"/>
+  <text x="420" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ClientLifecycleManager</text>
+  <text x="420" y="112" text-anchor="middle" font-size="10.5" fill="#2d5da8">管家：负责把事务发出去</text>
+  <line x1="420" y1="118" x2="420" y2="142" stroke="#666" stroke-width="1.5" marker-end="url(#m1)"/>
+  <text x="434" y="136" font-size="11" fill="#666">scheduleTransaction()</text>
+
+  <!-- layer 2 -->
+  <rect x="290" y="144" width="260" height="42" rx="7" fill="#e6f7f1" stroke="#4aa88a" stroke-width="1.4"/>
+  <text x="420" y="164" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ClientTransaction</text>
+  <text x="420" y="180" text-anchor="middle" font-size="10.5" fill="#1f6b55">一次事务，可装多个 Item</text>
+  <line x1="420" y1="186" x2="420" y2="210" stroke="#666" stroke-width="1.5" marker-end="url(#m1)"/>
+
+  <!-- layer 3 -->
+  <rect x="290" y="212" width="260" height="42" rx="7" fill="#f0ecfb" stroke="#7a5cd6" stroke-width="1.4"/>
+  <text x="420" y="232" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ClientTransactionItem</text>
+  <text x="420" y="248" text-anchor="middle" font-size="10.5" fill="#4b32a0">具体动作（只有两种最常用）</text>
+
+  <!-- split -->
+  <path d="M420,254 L420,278 L235,278 L235,300" stroke="#666" stroke-width="1.5" fill="none" marker-end="url(#m1)"/>
+  <path d="M420,278 L605,278 L605,300" stroke="#666" stroke-width="1.5" fill="none" marker-end="url(#m1)"/>
+
+  <rect x="105" y="302" width="260" height="52" rx="7" fill="#ffffff" stroke="#7a5cd6" stroke-width="1.3"/>
+  <text x="235" y="323" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a1a1a">LaunchActivityItem</text>
+  <text x="235" y="341" text-anchor="middle" font-size="11.5" fill="#c0392b">→ 触发 onCreate</text>
+
+  <rect x="475" y="302" width="260" height="52" rx="7" fill="#ffffff" stroke="#7a5cd6" stroke-width="1.3"/>
+  <text x="605" y="323" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a1a1a">ResumeActivityItem</text>
+  <text x="605" y="341" text-anchor="middle" font-size="11.5" fill="#c0392b">→ 触发 onStart + onResume</text>
+
+  <!-- cross process -->
+  <line x1="420" y1="354" x2="420" y2="378" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="430" y="372" font-size="11" fill="#c0392b">跨进程（Binder）到应用侧 · ApplicationThread</text>
+
+  <!-- executor -->
+  <rect x="250" y="380" width="340" height="56" rx="7" fill="#fff5f5" stroke="#d97a7a" stroke-width="1.5"/>
+  <text x="420" y="401" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">TransactionExecutor.execute()</text>
+  <text x="420" y="420" text-anchor="middle" font-size="10.5" fill="#9b3b3b">executeCallBack（走 Item）＋ executeLifecycleState（走状态机）</text>
+
+  <!-- footer -->
+  <rect x="80" y="452" width="680" height="44" rx="6" fill="#fafafa" stroke="#ddd" stroke-width="1"/>
+  <text x="96" y="472" font-size="12" fill="#333">记两个对应关系就够：<tspan font-weight="bold">LaunchActivityItem → onCreate</tspan>；<tspan font-weight="bold">ResumeActivityItem → onStart + onResume</tspan>。</text>
+  <text x="96" y="490" font-size="11" fill="#888">onStart/onResume 是在 executeLifecycleState 里用一个状态机循环连续走完的。</text>
+
+  <text x="420" y="512" text-anchor="middle" font-size="10.5" fill="#bbb">笔记：第1章 AMS篇 / 06 Activity 的生命周期和栈管理</text>
+</svg>

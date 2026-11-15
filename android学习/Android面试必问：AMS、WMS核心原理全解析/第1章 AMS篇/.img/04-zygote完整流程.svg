@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="660" viewBox="0 0 860 660" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif">
+  <defs>
+    <marker id="z1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#666"/>
+    </marker>
+  </defs>
+  <rect width="860" height="660" fill="#ffffff"/>
+  <text x="430" y="32" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a1a1a">zygote 启动：从 init 拉起，到自己进入死循环</text>
+  <text x="430" y="54" text-anchor="middle" font-size="12" fill="#777">native 层 → 过 JNI 桥 → Java 层，两层各干几件事</text>
+
+  <!-- stage 1 -->
+  <rect x="300" y="74" width="260" height="40" rx="7" fill="#fff1e0" stroke="#e0a35a" stroke-width="1.4"/>
+  <text x="430" y="99" text-anchor="middle" font-size="13" fill="#1a1a1a">init 按 init.rc 拉起 zygote</text>
+  <line x1="430" y1="114" x2="430" y2="138" stroke="#666" stroke-width="1.5" marker-end="url(#z1)"/>
+
+  <!-- stage 2 : native -->
+  <rect x="240" y="140" width="380" height="46" rx="7" fill="#e8eefc" stroke="#6b8fd6" stroke-width="1.4"/>
+  <text x="430" y="160" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">app_main.cpp → main()</text>
+  <text x="430" y="177" text-anchor="middle" font-size="11" fill="#2d5da8">创建 AppRuntime（继承 AndroidRuntime）</text>
+  <line x1="430" y1="186" x2="430" y2="210" stroke="#666" stroke-width="1.5" marker-end="url(#z1)"/>
+
+  <!-- stage 3 : runtime.start 三件事 -->
+  <rect x="150" y="212" width="560" height="34" rx="6" fill="#f7f9ff" stroke="#6b8fd6" stroke-width="1.2"/>
+  <text x="430" y="234" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">runtime.start()　做三件事</text>
+
+  <rect x="150" y="256" width="170" height="54" rx="6" fill="#ffffff" stroke="#6b8fd6" stroke-width="1.1"/>
+  <text x="235" y="278" text-anchor="middle" font-size="12.5" fill="#1a1a1a">① 创建虚拟机</text>
+  <text x="235" y="296" text-anchor="middle" font-size="10.5" fill="#666">ART 起来</text>
+
+  <rect x="345" y="256" width="170" height="54" rx="6" fill="#ffffff" stroke="#6b8fd6" stroke-width="1.1"/>
+  <text x="430" y="278" text-anchor="middle" font-size="12.5" fill="#1a1a1a">② 注册 JNI</text>
+  <text x="430" y="296" text-anchor="middle" font-size="10.5" fill="#666">搭 native ↔ Java 的桥</text>
+
+  <rect x="540" y="256" width="170" height="54" rx="6" fill="#ffffff" stroke="#6b8fd6" stroke-width="1.1"/>
+  <text x="625" y="278" text-anchor="middle" font-size="12.5" fill="#1a1a1a">③ 进入 Java 层</text>
+  <text x="625" y="296" text-anchor="middle" font-size="10.5" fill="#666">过桥调 Java 入口</text>
+
+  <line x1="430" y1="310" x2="430" y2="336" stroke="#666" stroke-width="1.5" marker-end="url(#z1)"/>
+  <text x="444" y="328" font-size="11" fill="#c0392b">JNI</text>
+
+  <!-- stage 4 : ZygoteInit.main -->
+  <rect x="240" y="338" width="380" height="46" rx="7" fill="#e6f7f1" stroke="#4aa88a" stroke-width="1.6"/>
+  <text x="430" y="358" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ZygoteInit.main()　进入 Java 层</text>
+  <text x="430" y="375" text-anchor="middle" font-size="11" fill="#1f6b55">这也是"zygote 是 Java 进程鼻祖"的落点</text>
+
+  <line x1="430" y1="384" x2="430" y2="408" stroke="#666" stroke-width="1.5" marker-end="url(#z1)"/>
+
+  <!-- stage 5 : four things -->
+  <rect x="120" y="410" width="620" height="30" rx="6" fill="#f2fdf9" stroke="#4aa88a" stroke-width="1.2"/>
+  <text x="430" y="430" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ZygoteInit.main() 里做四件事</text>
+
+  <rect x="120" y="448" width="290" height="52" rx="6" fill="#ffffff" stroke="#4aa88a" stroke-width="1.1"/>
+  <text x="265" y="469" text-anchor="middle" font-size="12.5" fill="#1a1a1a">① 预加载 preload</text>
+  <text x="265" y="487" text-anchor="middle" font-size="10.5" fill="#666">framework 资源 + 常用 Java 类（为加速，不为省内存）</text>
+
+  <rect x="440" y="448" width="300" height="52" rx="6" fill="#ffffff" stroke="#4aa88a" stroke-width="1.1"/>
+  <text x="590" y="469" text-anchor="middle" font-size="12.5" fill="#1a1a1a">② 建 socket</text>
+  <text x="590" y="487" text-anchor="middle" font-size="10.5" fill="#666">后面 AMS 靠它来"要进程"（不用 Binder）</text>
+
+  <rect x="120" y="512" width="290" height="52" rx="6" fill="#fdeaea" stroke="#d97a7a" stroke-width="1.2"/>
+  <text x="265" y="533" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a1a1a">③ fork system_server</text>
+  <text x="265" y="551" text-anchor="middle" font-size="10.5" fill="#9b3b3b">大儿子，去装近百个系统服务</text>
+
+  <rect x="440" y="512" width="300" height="52" rx="6" fill="#ffffff" stroke="#4aa88a" stroke-width="1.1"/>
+  <text x="590" y="533" text-anchor="middle" font-size="12.5" fill="#1a1a1a">④ runSelectLoop 死循环</text>
+  <text x="590" y="551" text-anchor="middle" font-size="10.5" fill="#666">zygote 自己在这里等消息</text>
+
+  <!-- footer -->
+  <text x="430" y="600" text-anchor="middle" font-size="12" fill="#444">主线：init → main() → start()（建虚拟机/注册JNI/进Java）→ ZygoteInit.main()（预加载/建socket/fork/死循环）</text>
+  <text x="430" y="624" text-anchor="middle" font-size="11" fill="#999">笔记：第1章 AMS篇 / 02 zygote 的启动流程</text>
+  <text x="430" y="644" text-anchor="middle" font-size="10.5" fill="#bbb">源码：ZygoteInit.java 的 main() 就是第 ⑤ 步那一整段</text>
+</svg>

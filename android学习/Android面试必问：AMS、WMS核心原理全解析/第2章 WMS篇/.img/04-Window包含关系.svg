@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="500" viewBox="0 0 860 500" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif">
+  <defs>
+    <marker id="w1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect width="860" height="500" fill="#ffffff"/>
+  <text x="430" y="32" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a1a1a">Activity / Window / View 的包含关系</text>
+  <text x="430" y="54" text-anchor="middle" font-size="12" fill="#777">嵌套的是"容器"，ViewRootImpl 不在树里 —— 它是外挂的调度器</text>
+
+  <!-- Activity -->
+  <rect x="60" y="76" width="450" height="330" rx="8" fill="#f7f9ff" stroke="#6b8fd6" stroke-width="1.6"/>
+  <text x="76" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Activity</text>
+  <text x="76" y="114" font-size="10.5" fill="#2d5da8">管生命周期；本身没有 UI 能力</text>
+
+  <!-- PhoneWindow -->
+  <rect x="84" y="126" width="402" height="262" rx="8" fill="#f2fdf9" stroke="#4aa88a" stroke-width="1.5"/>
+  <text x="100" y="146" font-size="12.5" font-weight="bold" fill="#1a1a1a">PhoneWindow</text>
+  <text x="100" y="162" font-size="10.5" fill="#1f6b55">attach() 里 new 出来的；唯一实现，几乎不干活</text>
+
+  <!-- DecorView -->
+  <rect x="108" y="174" width="354" height="196" rx="8" fill="#fff5f5" stroke="#d97a7a" stroke-width="1.5"/>
+  <text x="124" y="194" font-size="12.5" font-weight="bold" fill="#1a1a1a">DecorView</text>
+  <text x="124" y="210" font-size="10.5" fill="#9b3b3b">根视图；setContentView 时建好，但此时还没 addView 到 WMS</text>
+
+  <!-- ContentView -->
+  <rect x="132" y="222" width="306" height="128" rx="8" fill="#ffffff" stroke="#bbb" stroke-width="1.2" stroke-dasharray="5,3"/>
+  <text x="148" y="242" font-size="12" font-weight="bold" fill="#1a1a1a">ContentView</text>
+  <text x="148" y="258" font-size="10.5" fill="#666">你 setContentView 传进来的布局（解析 XML 得到）</text>
+  <text x="148" y="284" font-size="11" fill="#444">这里才是你写的那些 View / ViewGroup</text>
+  <text x="148" y="312" font-size="10.5" fill="#999">绘制时：背景 → onDraw → dispatchDraw（同一个 Canvas 往下传）</text>
+  <text x="148" y="336" font-size="10.5" fill="#999">尺寸要等 measure 之后才有值</text>
+
+  <!-- ViewRootImpl -->
+  <rect x="566" y="176" width="250" height="96" rx="8" fill="#f0ecfb" stroke="#7a5cd6" stroke-width="1.6"/>
+  <text x="582" y="197" font-size="12.5" font-weight="bold" fill="#1a1a1a">ViewRootImpl</text>
+  <text x="582" y="215" font-size="10.5" fill="#4b32a0">不是 View，是「调度器 + 到 WMS 的桥」</text>
+  <text x="582" y="236" font-size="10.5" fill="#444">setView / performTraversals</text>
+  <text x="582" y="254" font-size="10.5" fill="#444">relayoutWindow → mWindowSession</text>
+
+  <line x1="462" y1="224" x2="562" y2="224" stroke="#c0392b" stroke-width="1.8" marker-end="url(#w1)"/>
+  <text x="512" y="216" text-anchor="middle" font-size="10.5" fill="#c0392b">addView 时新建</text>
+
+  <!-- footer -->
+  <rect x="60" y="428" width="756" height="52" rx="6" fill="#fafafa" stroke="#ddd" stroke-width="1"/>
+  <text x="76" y="450" font-size="12" fill="#333">三层分工一句话：<tspan font-weight="bold">Activity 管生命周期 → Window 是壳 → ViewRootImpl 干活并把窗口交给 WMS。</tspan></text>
+  <text x="76" y="470" font-size="11" fill="#888">所以平时"画界面"你只在 ContentView 里忙，另外三样都是框架替你搭的。</text>
+
+  <text x="430" y="494" text-anchor="middle" font-size="10.5" fill="#bbb">笔记：第2章 WMS篇 / 01 生命周期中何时创建 Window</text>
+</svg>

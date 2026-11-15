@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="620" viewBox="0 0 840 620" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif">
+  <rect width="840" height="620" fill="#ffffff"/>
+  <text x="420" y="34" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a1a1a">Window / View / ViewRootImpl 的诞生时间线</text>
+  <text x="420" y="56" text-anchor="middle" font-size="12" fill="#777">答案：Window 在 attach，View 在 setContentView，真正连上 WMS 在 onResume 之后</text>
+
+  <!-- rail -->
+  <line x1="110" y1="96" x2="110" y2="520" stroke="#c9d6ea" stroke-width="3"/>
+
+  <!-- 1 attach -->
+  <circle cx="110" cy="112" r="7" fill="#4aa88a"/>
+  <text x="140" y="110" font-size="14.5" font-weight="bold" fill="#1a1a1a">① Activity.attach()</text>
+  <text x="140" y="130" font-size="12.5" fill="#444">new PhoneWindow()　+　setWindowManager()</text>
+  <rect x="600" y="96" width="200" height="30" rx="15" fill="#e6f7f1" stroke="#4aa88a" stroke-width="1"/>
+  <text x="700" y="116" text-anchor="middle" font-size="12" font-weight="bold" fill="#1f6b55">Window 诞生</text>
+
+  <!-- 2 onCreate -->
+  <circle cx="110" cy="200" r="7" fill="#6b8fd6"/>
+  <text x="140" y="198" font-size="14.5" font-weight="bold" fill="#1a1a1a">② onCreate() → setContentView()</text>
+  <text x="140" y="218" font-size="12.5" fill="#444">只做一件事：解析 XML，建出视图树</text>
+  <rect x="600" y="184" width="200" height="30" rx="15" fill="#e8eefc" stroke="#6b8fd6" stroke-width="1"/>
+  <text x="700" y="204" text-anchor="middle" font-size="12" font-weight="bold" fill="#2d5da8">View 树诞生</text>
+  <text x="140" y="238" font-size="11.5" fill="#c0392b">⚠ 但此时 View 和 Window 之间还没有任何关联</text>
+
+  <!-- 3 onResume inside -->
+  <circle cx="110" cy="300" r="7" fill="#e0a35a"/>
+  <text x="140" y="298" font-size="14.5" font-weight="bold" fill="#1a1a1a">③ onResume() 回调中（你写代码的地方）</text>
+  <text x="140" y="318" font-size="12.5" fill="#444">WindowManager 与 DecorView 还没绑定</text>
+  <rect x="600" y="284" width="200" height="30" rx="15" fill="#fff1e0" stroke="#e0a35a" stroke-width="1"/>
+  <text x="700" y="304" text-anchor="middle" font-size="12" font-weight="bold" fill="#8a5b1a">宽高 = 0</text>
+
+  <!-- 4 makeVisible -->
+  <circle cx="110" cy="392" r="7" fill="#c0392b"/>
+  <text x="140" y="390" font-size="14.5" font-weight="bold" fill="#1a1a1a">④ onResume 返回后 → makeVisible()</text>
+  <text x="140" y="410" font-size="12.5" fill="#444">wm.addView(decor, l)　→　WindowManagerImpl → WindowManagerGlobal</text>
+  <rect x="600" y="376" width="200" height="30" rx="15" fill="#fdeaea" stroke="#d97a7a" stroke-width="1"/>
+  <text x="700" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#9b3b3b">才连上 WMS</text>
+
+  <!-- 5 traversals -->
+  <circle cx="110" cy="478" r="7" fill="#7a5cd6"/>
+  <text x="140" y="476" font-size="14.5" font-weight="bold" fill="#1a1a1a">⑤ new ViewRootImpl → setView() → 第一次遍历</text>
+  <text x="140" y="496" font-size="12.5" fill="#444">measure → layout → draw（Canvas 来自 Surface.lockCanvas）</text>
+  <rect x="600" y="462" width="200" height="30" rx="15" fill="#f0ecfb" stroke="#7a5cd6" stroke-width="1"/>
+  <text x="700" y="482" text-anchor="middle" font-size="12" font-weight="bold" fill="#4b32a0">有宽高了</text>
+
+  <!-- footer -->
+  <rect x="60" y="548" width="740" height="52" rx="6" fill="#fafafa" stroke="#ddd" stroke-width="1"/>
+  <text x="76" y="570" font-size="12.5" fill="#1a1a1a">一句话记：<tspan font-weight="bold">attach 有 Window，setContentView 有 View，onResume 之后才连上并能量。</tspan></text>
+  <text x="76" y="590" font-size="11.5" fill="#666">所以「在 onResume 里量宽高」第一次是 0，从别的页面返回才有值 —— 因为那时已经量过一轮了。</text>
+</svg>

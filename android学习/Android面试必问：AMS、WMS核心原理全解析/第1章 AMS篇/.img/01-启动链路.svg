@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="720" viewBox="0 0 820 720" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#666"/>
+    </marker>
+  </defs>
+  <rect width="820" height="720" fill="#ffffff"/>
+
+  <text x="410" y="34" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a1a1a">Android 启动链路：一层 fork 一层</text>
+  <text x="410" y="56" text-anchor="middle" font-size="12" fill="#777">AMS 与 WMS 都住在 system_server 里</text>
+
+  <!-- 1 上电 -->
+  <rect x="230" y="76" width="360" height="46" rx="8" fill="#e8eefc" stroke="#6b8fd6" stroke-width="1.5"/>
+  <text x="410" y="104" text-anchor="middle" font-size="14" fill="#1a1a1a">① 按下电源键，上电</text>
+
+  <!-- 2 Boot ROM -->
+  <rect x="230" y="152" width="360" height="46" rx="8" fill="#e8eefc" stroke="#6b8fd6" stroke-width="1.5"/>
+  <text x="410" y="173" text-anchor="middle" font-size="14" fill="#1a1a1a">② 引导芯片执行 ROM 里的固化代码</text>
+  <text x="410" y="190" text-anchor="middle" font-size="11" fill="#666">ROM ≈ 硬盘：断电不丢</text>
+
+  <!-- 3 bootloader -->
+  <rect x="230" y="228" width="360" height="46" rx="8" fill="#e8eefc" stroke="#6b8fd6" stroke-width="1.5"/>
+  <text x="410" y="249" text-anchor="middle" font-size="14" fill="#1a1a1a">③ bootloader 被搬进 RAM 并执行</text>
+  <text x="410" y="266" text-anchor="middle" font-size="11" fill="#666">RAM ≈ 内存：断电就丢，所以要先搬</text>
+
+  <!-- 4 kernel -->
+  <rect x="230" y="304" width="360" height="46" rx="8" fill="#e8eefc" stroke="#6b8fd6" stroke-width="1.5"/>
+  <text x="410" y="332" text-anchor="middle" font-size="14" fill="#1a1a1a">④ kernel 启动（Linux）</text>
+
+  <!-- 5 init -->
+  <rect x="230" y="380" width="360" height="46" rx="8" fill="#fff1e0" stroke="#e0a35a" stroke-width="1.5"/>
+  <text x="410" y="401" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">⑤ init　PID = 1</text>
+  <text x="410" y="418" text-anchor="middle" font-size="11" fill="#8a5b1a">用户空间鼻祖：第一个开辟用户空间的进程</text>
+
+  <!-- 6 zygote -->
+  <rect x="230" y="456" width="360" height="46" rx="8" fill="#e6f7f1" stroke="#4aa88a" stroke-width="1.5"/>
+  <text x="410" y="477" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">⑥ zygote　孵化器 / 受精卵</text>
+  <text x="410" y="494" text-anchor="middle" font-size="11" fill="#1f6b55">Java 进程鼻祖：靠 fork 不断分裂</text>
+
+  <!-- 7 system_server -->
+  <rect x="110" y="568" width="280" height="54" rx="8" fill="#fdeaea" stroke="#d97a7a" stroke-width="1.5"/>
+  <text x="250" y="590" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">⑦ system_server（大儿子）</text>
+  <text x="250" y="609" text-anchor="middle" font-size="11" fill="#9b3b3b">启动 AMS / WMS / PKMS 等近百个服务</text>
+
+  <!-- 8 App -->
+  <rect x="450" y="568" width="280" height="54" rx="8" fill="#f2f2f2" stroke="#999" stroke-width="1.5"/>
+  <text x="590" y="590" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">⑧ App 进程</text>
+  <text x="590" y="609" text-anchor="middle" font-size="11" fill="#555">同样由 zygote fork 出来</text>
+
+  <!-- arrows -->
+  <line x1="410" y1="122" x2="410" y2="150" stroke="#666" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="410" y1="198" x2="410" y2="226" stroke="#666" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="410" y1="274" x2="410" y2="302" stroke="#666" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="410" y1="350" x2="410" y2="378" stroke="#666" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="424" y="370" font-size="11" fill="#c26b1a">fork</text>
+  <line x1="410" y1="426" x2="410" y2="454" stroke="#666" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="410" y1="502" x2="410" y2="534" stroke="#666" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="424" y="522" font-size="11" fill="#2f8a6d">fork</text>
+  <path d="M250,534 L590,534" stroke="#666" stroke-width="1.5" fill="none"/>
+  <line x1="250" y1="534" x2="250" y2="566" stroke="#666" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="590" y1="534" x2="590" y2="566" stroke="#666" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="410" y1="534" x2="410" y2="534" stroke="#666" stroke-width="1.5"/>
+
+  <!-- footer -->
+  <text x="410" y="672" text-anchor="middle" font-size="12" fill="#444">init 负责系统仆从（kthreadd 等）；zygote 负责 fork 出 Java 进程 —— 工厂与服务分开</text>
+  <text x="410" y="694" text-anchor="middle" font-size="11" fill="#999">笔记：第1章 AMS篇 / 01 Android整体启动流程</text>
+</svg>

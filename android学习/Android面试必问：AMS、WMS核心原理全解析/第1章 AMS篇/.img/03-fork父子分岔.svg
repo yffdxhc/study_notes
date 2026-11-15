@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="560" viewBox="0 0 840 560" font-family="Microsoft YaHei, PingFang SC, Noto Sans CJK SC, sans-serif">
+  <defs>
+    <marker id="k1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#555"/>
+    </marker>
+  </defs>
+  <rect width="840" height="560" fill="#ffffff"/>
+  <text x="420" y="32" text-anchor="middle" font-size="19" font-weight="bold" fill="#1a1a1a">fork 之后：两份一样的代码，靠返回值分岔</text>
+  <text x="420" y="54" text-anchor="middle" font-size="12" fill="#777">父进程拿到"子进程的 PID"，子进程拿到 0</text>
+
+  <!-- zygote -->
+  <rect x="290" y="76" width="260" height="48" rx="8" fill="#e6f7f1" stroke="#4aa88a" stroke-width="1.6"/>
+  <text x="420" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">zygote 进程</text>
+  <text x="420" y="116" text-anchor="middle" font-size="11" fill="#1f6b55">代码执行到 fork() 这一行</text>
+
+  <!-- fork -->
+  <line x1="420" y1="124" x2="420" y2="156" stroke="#555" stroke-width="1.6" marker-end="url(#k1)"/>
+  <rect x="360" y="158" width="120" height="30" rx="15" fill="#fff" stroke="#4aa88a" stroke-width="1.4"/>
+  <text x="420" y="178" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1f6b55">fork()</text>
+
+  <!-- split -->
+  <path d="M420,188 L420,214 L225,214 L225,240" stroke="#555" stroke-width="1.6" fill="none" marker-end="url(#k1)"/>
+  <path d="M420,214 L615,214 L615,240" stroke="#555" stroke-width="1.6" fill="none" marker-end="url(#k1)"/>
+
+  <!-- left: parent -->
+  <rect x="90" y="242" width="270" height="52" rx="8" fill="#e8eefc" stroke="#6b8fd6" stroke-width="1.6"/>
+  <text x="225" y="264" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">父进程（zygote）</text>
+  <text x="225" y="283" text-anchor="middle" font-size="11.5" fill="#2d5da8">返回值 = 子进程的 PID（&gt; 0）</text>
+
+  <line x1="225" y1="294" x2="225" y2="320" stroke="#555" stroke-width="1.5" marker-end="url(#k1)"/>
+  <rect x="90" y="322" width="270" height="70" rx="8" fill="#f7f9ff" stroke="#6b8fd6" stroke-width="1"/>
+  <text x="225" y="344" text-anchor="middle" font-size="12.5" fill="#1a1a1a">继续往下走 → runSelectLoop()</text>
+  <text x="225" y="364" text-anchor="middle" font-size="12" fill="#444">死循环，等 AMS 来"要一个进程"</text>
+  <text x="225" y="382" text-anchor="middle" font-size="11" fill="#888">（它就是进程工厂，不干别的）</text>
+
+  <!-- right: child -->
+  <rect x="480" y="242" width="270" height="52" rx="8" fill="#fdeaea" stroke="#d97a7a" stroke-width="1.6"/>
+  <text x="615" y="264" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">子进程（system_server）</text>
+  <text x="615" y="283" text-anchor="middle" font-size="11.5" fill="#9b3b3b">返回值 = 0（无效值，只为区分）</text>
+
+  <line x1="615" y1="294" x2="615" y2="320" stroke="#555" stroke-width="1.5" marker-end="url(#k1)"/>
+  <rect x="480" y="322" width="270" height="70" rx="8" fill="#fff5f5" stroke="#d97a7a" stroke-width="1"/>
+  <text x="615" y="344" text-anchor="middle" font-size="12.5" fill="#1a1a1a">r.run() → 反射调 SystemServer.main()</text>
+  <text x="615" y="364" text-anchor="middle" font-size="12" fill="#444">启动 AMS / WMS / PKMS 等近百个服务</text>
+  <text x="615" y="382" text-anchor="middle" font-size="11" fill="#888">（它是服务宿主，不是工厂）</text>
+
+  <!-- note -->
+  <rect x="90" y="424" width="660" height="70" rx="6" fill="#fafafa" stroke="#ddd" stroke-width="1"/>
+  <text x="106" y="446" font-size="12.5" font-weight="bold" fill="#1a1a1a">为什么非要有返回值这东西</text>
+  <text x="106" y="466" font-size="12" fill="#333">fork 出来的是"双胞胎"：两块代码完全一样，都要接着往下执行。不靠返回值就无法区分自己是谁。</text>
+  <text x="106" y="484" font-size="12" fill="#333">而两者后续任务完全不同 —— 一个等消息、一个启服务，所以必须分岔。</text>
+
+  <text x="420" y="524" text-anchor="middle" font-size="11" fill="#999">笔记：第1章 AMS篇 / 03 system_server进程的创建</text>
+  <text x="420" y="544" text-anchor="middle" font-size="10.5" fill="#bbb">补充：父进程里 r 为 null，子进程里 r 非空 —— 等价于 pid==0 的第二种判断方式</text>
+</svg>
