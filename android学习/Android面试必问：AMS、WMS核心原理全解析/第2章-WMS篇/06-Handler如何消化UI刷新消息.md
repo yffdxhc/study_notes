@@ -1,4 +1,4 @@
-﻿# 06 Handler 如何消化 UI 刷新消息
+﻿# 06 [Handler](../00-术语表.md#handler) 如何消化 UI 刷新消息
 
 > **逐字稿**：`C:\Users\18369\Documents\ZhuangFengYuan\Android面试必问：AMS、WMS核心原理全解析\Android面试必问_AMS、WMS核心原理全解析 - P12 6.handler 如何管理和消化 UI刷新消息的.doc`
 > 上一讲：[05 子线程能更新 UI 吗](05-子线程更新UI.md)｜下一讲：[07 绘制用的是同一个 Canvas 吗](07-绘制是否用同一个Canvas.md)
@@ -33,7 +33,7 @@ public static void main(String[] args) {
 |---|---|
 | `Looper.loop()` 是个**死循环** | 它不返回 |
 | `main()` 因此**永不结束** | **进程不会因为"程序跑完了"而退出** |
-| 所以 App 会一直活着 | 除非 AMS 把它杀掉 |
+| 所以 App 会一直活着 | 除非 [AMS](../00-术语表.md#ams-atm) 把它杀掉 |
 
 > **"Handler 只是线程通信"是错的** —— 它真正的身份是**让 App 活着的那个循环**。
 

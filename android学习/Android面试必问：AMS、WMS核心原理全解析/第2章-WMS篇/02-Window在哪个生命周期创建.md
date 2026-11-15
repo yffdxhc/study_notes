@@ -73,7 +73,7 @@ performResumeActivity()          ← 这里回调 activity.onResume()
 |---|---|
 | `r.window = activity.getWindow()` | 拿到 attach 时创建的那个 `PhoneWindow` |
 | `decor = r.window.getDecorView()` | 拿到根视图 |
-| **`wm.addView(decor, l)`** | **把 DecorView 添加到窗口系统** —— 这才是"建立联系" |
+| **`wm.addView(decor, l)`** | **把 [DecorView](../00-术语表.md#decorview-contentview) 添加到窗口系统** —— 这才是"建立联系" |
 
 > **所以完整答案是：Window 对象在 `attach` 创建；Window 真正"上屏"在 `onResume`。**
 
@@ -141,7 +141,7 @@ performResumeActivity()          ← 这里回调 activity.onResume()
 | 以为 `setContentView` 就把 View 挂到 Window 了 | **没有**；它只解析 XML 建视图树 |
 | 以为 `onStart` 就 addView | 是 **`onResume`** 的 `handleResumeActivity` |
 | 以为 `Window` 是干活的 | **`Window` 几乎不干活**，活都推给 `ViewRootImpl` |
-| 以为 `WindowManager` 直接创建窗口 | 它只是**桥**：Impl → Global → ViewRootImpl |
+| 以为 `WindowManager` 直接创建窗口 | 它只是**桥**：Impl → Global → [ViewRootImpl](../00-术语表.md#viewrootimpl) |
 | 以为每个 Activity 一个 `WindowManagerGlobal` | **整个进程只有一个** |
 | 以为 `Activity` 能直接画 UI | Activity **不具备 UI 功能**，只负责生命周期调度 |
 
@@ -157,7 +157,7 @@ performResumeActivity()          ← 这里回调 activity.onResume()
 - [ ] 能背出 `wm.addView` 的**三级委托链** → 四
 - [ ] 能说出为什么 `WindowManagerGlobal` 是"全局唯一" → 四
 - [ ] 能列出 `ViewRootImpl` 管的**至少四件事** → 五
-- [ ] 能画出 Activity → PhoneWindow → ViewRootImpl 的类关系 → 六
+- [ ] 能画出 Activity → [PhoneWindow](../00-术语表.md#window) → ViewRootImpl 的类关系 → 六
 
 ---
 
