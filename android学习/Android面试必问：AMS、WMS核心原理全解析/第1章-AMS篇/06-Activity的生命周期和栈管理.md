@@ -4,7 +4,6 @@
 > 上一讲：[05 Activity 的启动流程](05-Activity的启动流程.md)
 > 导读：[00 导读与规范](../00-导读与规范.md)
 > **值得回看**：老师**在白板画生命周期管理的类图**（ClientLifecycleManager → [ClientTransaction](../../../辅助稿/术语表.md#clienttransaction) → Item），以及现场跑 `dumpsys activity` 看栈信息
-> ⚠️ **文稿口误**：`ActivityThread` → 「activity s read / activity three」；`ActivityStack` → 「DVD start / 账 / 站」；`dumpsys` → 「doubles / dumper」；`ResumeActivityItem` → 「racial activation item / ration activity item」
 
 ---
 

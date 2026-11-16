@@ -4,7 +4,6 @@
 > 上一讲：[03 system_server 进程的创建](03-system_server进程的创建.md)｜下一讲：[05 Activity 的启动流程](05-Activity的启动流程.md)
 > 导读：[00 导读与规范](../00-导读与规范.md)
 > **值得回看**：老师**在源码里现场搜 `startSystemProcess`、`publishBinderService`**，一路点进 `Lifecycle` 内部类，演示"看名字预判 + 跳进去验证"的读源码手法
-> ⚠️ **文稿口误**：`SystemServiceManager` → 「season server manager / c server manager」；`ActivityTaskSupervisor` → 「activity spark supervision」；`SystemServer` → 「深成照 / 生成 server / 随身 server」
 
 ---
 
@@ -161,8 +160,6 @@ ActivityManagerService.systemReady()
    ↓
 ATM 去启动桌面（Launcher）
 ```
-
-> ⚠️ 文稿里方法名是"`ration top activities`"，实际类/方法名**待核实**（看源码时以 `startTopActivities` 一类为准）。
 
 ---
 

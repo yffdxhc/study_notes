@@ -4,7 +4,6 @@
 > 上一讲：[06 Handler 如何消化 UI 刷新消息](06-Handler如何消化UI刷新消息.md)
 > 导读：[00 导读与规范](../00-导读与规范.md)
 > **值得回看**：老师从 `performDraw` 一路点到 `Surface.lockCanvas()` **拿到第一个 Canvas**，再点进 `View.draw` → `dispatchDraw` 验证"同一个传下去"
-> ⚠️ **文稿口误**：`Canvas` → 「con / cone / commerce / 康」；`Surface` → 「说服 / 是 face / service」；`draw` → 「旧 / 就 / j」；`dispatchDraw` → 「dis page」
 
 ---
 

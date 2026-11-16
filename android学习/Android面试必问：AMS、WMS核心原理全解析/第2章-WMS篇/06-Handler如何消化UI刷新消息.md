@@ -4,7 +4,6 @@
 > 上一讲：[05 子线程能更新 UI 吗](05-子线程更新UI.md)｜下一讲：[07 绘制用的是同一个 Canvas 吗](07-绘制是否用同一个Canvas.md)
 > 导读：[00 导读与规范](../00-导读与规范.md)
 > **值得回看**：老师画消息队列（队头/队尾）、演示 `handler.post` 拿不到宽高而 `postDelayed` 能拿到，最后用 **`Looper` 的 Printer 接口**推演出"用消息耗时做性能监控"
-> ⚠️ **文稿口误**：`MessageQueue` → 「max q / magic q」；`Looper` → 「loop / 撸p」；`ViewRootImpl` → 「view route」；`Printer` → 「print / 螺杆」
 
 ---
 

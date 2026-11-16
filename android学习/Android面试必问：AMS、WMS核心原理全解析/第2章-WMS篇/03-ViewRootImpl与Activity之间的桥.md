@@ -4,7 +4,6 @@
 > 上一讲：[02 Window 到底在哪个生命周期创建](02-Window在哪个生命周期创建.md)｜下一讲：[04 onResume 里能度量 View 宽高吗](04-onResume中能否度量View宽高.md)
 > 导读：[00 导读与规范](../00-导读与规范.md)
 > **值得回看**：老师顺着 `setView` 往下点，指出 `mWindowSession` **本身就是一个 [Binder](../../../辅助稿/术语表.md#binder)**，"把 WindowState 交给 SurfaceFlinger"那一下
-> ⚠️ **文稿口误**：`ViewRootImpl` → 「new road / view rule」；`Session` → 「service / c型」；`SurfaceFlinger` → 「surface flink / 分类给」；`Binder` → 「band」
 
 ---
 
@@ -32,8 +31,6 @@
 | **`mWindowSession`** | **`IWindowSession` 的 Binder 代理** —— 老师强调"它就是个 Binder" |
 | **`Session`** | WMS 进程里对应的服务端对象 |
 | **`WindowState`** | WMS 里代表"一个窗口"的对象（和 [AMS](../../../辅助稿/术语表.md#ams-atm) 里的 `ActivityRecord` 地位类似） |
-
-> ⚠️ 文稿里方法名念成了"`a的toDisplay` / `service点a的window`"，**实际是 `relayout` / `relayoutWindow` 这一族**，看源码时以 `performTraversals` → `relayoutWindow` 为准。
 
 ---
 

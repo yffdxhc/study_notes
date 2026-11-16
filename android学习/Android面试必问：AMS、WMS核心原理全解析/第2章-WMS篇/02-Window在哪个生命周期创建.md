@@ -4,7 +4,6 @@
 > 上一讲：[01 生命周期中何时创建 Window](01-生命周期中何时创建Window.md)｜下一讲：[03 ViewRootImpl 与 Activity 之间的桥](03-ViewRootImpl与Activity之间的桥.md)
 > 导读：[00 导读与规范](../00-导读与规范.md)
 > **值得回看**：老师在 `handleResumeActivity` 里逐行念 `r.window = activity.getWindow()` → `wm.addView(decor, l)`，然后一路点进 `WindowManagerImpl` → `WindowManagerGlobal` → `ViewRootImpl.setView`
-> ⚠️ **文稿口误**：`PhoneWindow` → 「full window / 孔温度」；`ViewRootImpl` → 「view route implement / router view / view route」；`WindowManagerGlobal` → 「window manager group / window money」；`DecorView` → 「deck view」；`Activity` → 「iktv / iqt / 挨个 tvt」
 
 ---
 

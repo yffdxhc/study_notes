@@ -4,7 +4,6 @@
 > 上一讲：[02 zygote 的启动流程](02-zygote的启动流程.md)｜下一讲：[04 ATM 和 AMS 的启动流程](04-ATM和AMS的启动流程.md)
 > 导读：[00 导读与规范](../00-导读与规范.md)
 > **值得回看**：老师**在纸上画图**演示 fork 前是"一个细胞"、fork 后变"两个一模一样的细胞"，以及 CPU 逐行执行到 fork 那一行的瞬间
-> ⚠️ **文稿口误**：`system_server` → 「cs server / c server / season server / c四三 server」；`Zygote` → 「摘要 / 摘 / 负进程（父进程）」；`pid == 0` → 「PID 等于零」；（文稿里"父/负"混用、"子/紫"混用）
 
 ---
 

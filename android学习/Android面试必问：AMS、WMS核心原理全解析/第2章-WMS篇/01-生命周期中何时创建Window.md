@@ -4,7 +4,6 @@
 > 下一讲：[02 Window 到底在哪个生命周期创建](02-Window在哪个生命周期创建.md)
 > 导读：[00 导读与规范](../00-导读与规范.md)
 > **值得回看**：老师开头那段"这张关系图谁都见过，但**它们什么时候建立联系**你答不上来"，以及他现场从 `handleLaunchActivity` 点进 `performLaunchActivity` → `attach`
-> ⚠️ **文稿口误**：`PhoneWindow` → 「full window / 孔温度 / payphone line / 配放大器」；`Activity` → 「iktv / iptv / IQ / idd」；`WindowManagerService` → 「WINDOWS many service」
 
 ---
 

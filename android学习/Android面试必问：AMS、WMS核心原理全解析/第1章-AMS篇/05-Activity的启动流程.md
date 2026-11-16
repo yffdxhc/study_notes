@@ -4,7 +4,6 @@
 > 上一讲：[04 ATM 和 AMS 的启动流程](04-ATM和AMS的启动流程.md)｜下一讲：[06 Activity 的生命周期和栈管理](06-Activity的生命周期和栈管理.md)
 > 导读：[00 导读与规范](../00-导读与规范.md)
 > **值得回看**：老师在源码里从 `ActivityThread.main` 一路点到 `attachApplication`，讲"为什么 [AMS](../../../辅助稿/术语表.md#ams-atm) 必须等应用主动上户口"，还有他答这道面试题时的**完整口述版**
-> ⚠️ **文稿口误**：`ActivityThread` → 「activity three / activity s read / activity item」；`ApplicationThread` → 「application three」；`Binder` → 「band/ban」；`Zygote` → 「摘要/摘口的」
 
 ---
 

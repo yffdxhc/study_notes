@@ -4,7 +4,6 @@
 > 上一讲：[01 Android 整体启动流程](01-Android整体启动流程.md)｜下一讲：[03 system_server 进程的创建](03-system_server进程的创建.md)
 > 导读：[00 导读与规范](../00-导读与规范.md)
 > **值得回看**：老师**逐行翻 Android 11 源码**（`app_main.cpp` → `AndroidRuntime.start` → `ZygoteInit.main`），一路点进 JNI 调 Java 的那一下
-> ⚠️ **文稿口误**：`zygote` → 「摘要 / 摘 / 摘口 / s」；`AndroidRuntime` → 「android wrong time / 安卓伊拢汰」；`JNI` → 「gni / ji / JK」；`Binder` → 「band」；`system_server` → 「cs server / c3 server / CN server」
 
 ---
 

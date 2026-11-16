@@ -15,14 +15,33 @@ init 负责系统仆从(kthreadd等)；zygote 负责 fork 出 java进程——�
 3层 system_server 生了 AMS/WMS/PKMS等近百个服务(这些不是进程，是服务)
 4层 App进程 跑你的Activity
 工厂(zygote)负责fork;服务宿主(system_server)复制装服务。两者分工
-
+------
 
 ROM 和 RAM 的区别：
-ROM	断电后数据还在
-RAM	断电后数据丢失
+ROM(类比硬盘)	断电后数据还在
+RAM(类比内存)	断电后数据丢失
 
 为什么搬到RAM再执行：
-1、启动介质
+1、启动介质不能"就地取指"。启动介质多是按页/块访问，CPU 没法逐条指令去寻址。只有 NOR Flash(一种非易失性存储器) 才支持 XIP（execute in place）
+2、上电那刻DRAM还不能用。DRAM 要先初始化（时序训练）。此时 CPU 只有很小的片上 SRAM（几十~几百 KB），实际是两段式：BootROM → SPL/Preloader 进 SRAM → SPL 初始化 DRAM → 完整 bootloader 进 DRAM
+3、执行不只是取指，还要可写的栈。代码跑起来需要栈、堆、可写全局变量；Flash 只读，当不了栈。整段搬进 RAM 后代码和数据都在可读写空间，最简单统一
+------
 
+init 为什么叫"用户空间鼻祖"：
+init 是第一个开辟用户空间的进程 —— 在它之前的所有进程都运行在内核态。
+内核空间是内核层，用于内核代码、驱动
+用户空间是应用层，用于执行App的代码
+所以 init 是用户空间里的第一个进程，后面所有用户空间进程都是它的后代。
 
+init进程的PID=1,是用户空间的第一个进程
+kthreadd的PID=2,是内核线程的父进程
+内核的idle/swapper进程的PID=0,不是用户进程
+------
 
+init fork 出的两个关键子进程：
+init fork出的两个关键自进程是kthreadd和zygote。
+kthreadd是内核线程的父进程，处理内核里的工作(不用管)
+zygote是孵化器 / 受精卵，后面所有 Java 进程的源头(重点)
+------
+
+zygote 为什么叫"受精卵/孵化器

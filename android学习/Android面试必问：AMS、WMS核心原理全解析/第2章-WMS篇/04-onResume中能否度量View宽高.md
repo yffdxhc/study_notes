@@ -4,7 +4,6 @@
 > 上一讲：[03 ViewRootImpl 与 Activity 之间的桥](03-ViewRootImpl与Activity之间的桥.md)｜下一讲：[05 子线程能更新 UI 吗](05-子线程更新UI.md)
 > 导读：[00 导读与规范](../00-导读与规范.md)
 > **值得回看**：老师现场在 `onResume` 里打印 `decorView.getWidth()`，**控制台输出 0**，然后立刻反问"为什么是 0"
-> ⚠️ **文稿口误**：`decorView` → 「特色view / 退出view / test view」；`getWidth` → 「get y / get wet」；`onResume` → 「only soon / on res ho」
 
 ---
 
