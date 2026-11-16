@@ -204,3 +204,5 @@ runtime.start(...);      // ② 启动运行时
 > **zygote 启动 = 建虚拟机 → 注册 JNI → 过桥进 Java → 预加载 + 建 socket + fork system_server + 死循环等消息。**
 >
 > **四道面试题**：进程包虚拟机（内存私有好管理）/ 预加载是为快不是省 / socket 避开 fork 死锁 / 工厂归 zygote、服务归 system_server。
+
+> 📌 **本篇文稿坑 5 处**：`zygote`、`AndroidRuntime`、`JNI`、`Binder`、`system_server` —— 见[口误表](../../../辅助稿/口误表.md#02-zygote-的启动流程)

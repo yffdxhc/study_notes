@@ -178,3 +178,5 @@ adb shell dumpsys activity
 > **生命周期靠一张事务单：`ClientLifecycleManager` → `ClientTransaction` → `LaunchActivityItem`(onCreate) / `ResumeActivityItem`(onStart+onResume)，经 Binder 到应用进程再由 `TransactionExecutor` 执行。**
 >
 > **栈三层：`ActivityStack` → `Task`(11 前叫 TaskRecord) → `ActivityRecord`(一个对应一个 Activity)，用 `dumpsys activity` 就能看见。**
+
+> 📌 **本篇文稿坑 4 处**：`ActivityThread`、`ActivityStack`、`dumpsys`、`ResumeActivityItem` —— 见[口误表](../../../辅助稿/口误表.md#06-activity-的生命周期和栈管理)

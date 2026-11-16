@@ -205,3 +205,5 @@
 > **上电 → bootloader → kernel → `init`(PID 1，用户空间鼻祖) → `zygote`(孵化器，Java 进程鼻祖) → `system_server`(大儿子，装所有 Java 系统服务) + App 进程。**
 > 
 > **四层链条，每层 fork 下一层；AMS 和 WMS 都住在 `system_server` 里。**
+
+> 📌 **本篇文稿坑 3 处**：`init`、`zygote`、`system_server` —— 见[口误表](../../../辅助稿/口误表.md#01-android-整体启动流程)

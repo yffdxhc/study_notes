@@ -228,3 +228,5 @@ attachApplication(mAppThread)              // 把 Binder 交给 AMS
 > **startActivity → Instrumentation.execStartActivity →（Binder）AMS/ATM → 判进程在不在 → 不在就让 socket 通知 zygote fork → 新进程反射跑 ActivityThread.main → attachApplication 交出 [ApplicationThread](../../../辅助稿/术语表.md#attachapplication) → AMS 驱动生命周期。**
 >
 > **面试只答 6 点：统一入口 / Instrumentation / 跨进程进 AMS·ATM（9 是分界） / 判进程 / socket 找 zygote / 应用主动上户口。**
+
+> 📌 **本篇文稿坑 4 处**：`ActivityThread`、`ApplicationThread`、`Binder`、`Zygote` —— 见[口误表](../../../辅助稿/口误表.md#05-activity-的启动流程)

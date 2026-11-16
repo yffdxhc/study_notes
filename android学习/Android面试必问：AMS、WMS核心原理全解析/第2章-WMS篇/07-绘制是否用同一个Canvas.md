@@ -124,3 +124,5 @@
 > **绘制顺序固定：先画背景 → 再 `onDraw` → 再 `dispatchDraw` 给孩子。**
 >
 > **因为共用一块画布：`save/restore` 要配对，`lockCanvas/unlockCanvasAndPost` 也要配对。**
+
+> 📌 **本篇文稿坑 4 处**：`Canvas`、`Surface`、`draw`、`dispatchDraw` —— 见[口误表](../../../辅助稿/口误表.md#07-绘制是否用同一个-canvas)

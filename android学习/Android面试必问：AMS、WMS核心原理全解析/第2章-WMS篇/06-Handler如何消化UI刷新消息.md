@@ -205,3 +205,5 @@ Printer 收集每条消息的开始/结束时间
 > **UI 刷新用「消息屏障」插队（只放行异步消息）→ `handler.post` 可能排在遍历前，拿到 0；`view.post` 有自己的队列，能拿到。**
 >
 > **一切皆消息 ⇒ 给 `Looper` 设 `Printer` 统计每条消息耗时，就能做 Activity 生命周期监控（Matrix 同款思路）。**
+
+> 📌 **本篇文稿坑 4 处**：`MessageQueue`、`Looper`、`ViewRootImpl`、`Printer` —— 见[口误表](../../../辅助稿/口误表.md#06-handler-如何消化-ui-刷新消息)

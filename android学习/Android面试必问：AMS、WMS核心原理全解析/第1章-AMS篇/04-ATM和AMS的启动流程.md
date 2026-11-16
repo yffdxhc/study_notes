@@ -238,3 +238,5 @@ ATM 去启动桌面（Launcher）
 > **Android 10 起 AMS → 拆成 ATM + AMS；两者都创建 `ActivityTaskSupervisor`，都把自己注册进 `ServiceManager`。**
 >
 > **`ServiceManager` 管"服务在哪"，`SystemServiceManager` 管"服务怎么活"。**
+
+> 📌 **本篇文稿坑 4 处**：`SystemServiceManager`、`ActivityTaskSupervisor`、`SystemServer`、`疑似 startTopActivities 一族` —— 见[口误表](../../../辅助稿/口误表.md#04-atm-和-ams-的启动流程)

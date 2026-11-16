@@ -177,3 +177,5 @@ setContentView()
 > **Activity 通过类加载创建 → `attach()` 里 `new PhoneWindow()` + `setWindowManager()`（Window 诞生）→ `onCreate` 里 `setContentView` 解析 XML（View 诞生）。**
 >
 > **所以：Window 比 View 早，两者都比 `ViewRootImpl` 早；而这一整套都由 Handler 的一条消息驱动。**
+
+> 📌 **本篇文稿坑 3 处**：`PhoneWindow`、`Activity`、`WindowManagerService` —— 见[口误表](../../../辅助稿/口误表.md#01-生命周期中何时创建-window)

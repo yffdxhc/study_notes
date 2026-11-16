@@ -170,3 +170,5 @@ main.invoke(null, args);
 > **fork 之后两个进程代码一模一样，靠返回值分岔：父进程拿到子进程 PID，子进程拿到 0。**
 >
 > **子进程（`system_server`）→ `r.run()` 里反射调 `SystemServer.main()` 去启动近百个系统服务；父进程（zygote）→ `runSelectLoop` 死循环等消息。**
+
+> 📌 **本篇文稿坑 3 处**：`system_server`、`Zygote`、`pid == 0` —— 见[口误表](../../../辅助稿/口误表.md#03-systemserver-进程的创建)

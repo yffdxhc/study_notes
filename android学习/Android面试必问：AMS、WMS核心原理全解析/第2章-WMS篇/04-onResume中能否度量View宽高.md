@@ -159,3 +159,5 @@ measure → layout → draw              ★ 这才有宽高
 > **`onResume` 回调时，`WindowManager` 还没和 `DecorView` 绑定（那是它返回后 `makeVisible()` 干的事）→ 没遍历 → 没度量 → 宽高是 0。**
 >
 > **从别的页面返回有值，是因为之前已经量过。所以答案是"不确定"，不是"不能"。**
+
+> 📌 **本篇文稿坑 3 处**：`decorView`、`getWidth`、`onResume` —— 见[口误表](../../../辅助稿/口误表.md#04-onresume-中能否度量-view-宽高)

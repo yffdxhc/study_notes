@@ -124,3 +124,5 @@ Skia / OpenGL ES 渲染
 > **`ViewRootImpl.setView` → `scheduleTraversals` → `performTraversals` → `relayoutWindow` → `mWindowSession.relayout`（Binder）→ WMS 生成 `WindowState` → SurfaceFlinger 合成上屏。**
 >
 > **上层都在应用进程里自娱自乐，真正跨到系统的那一刀切在 `ViewRootImpl` —— 所以它是桥。**
+
+> 📌 **本篇文稿坑 5 处**：`ViewRootImpl`、`Session`、`SurfaceFlinger`、`relayout`、`Binder` —— 见[口误表](../../../辅助稿/口误表.md#03-viewrootimpl-与-activity-之间的桥)

@@ -165,3 +165,5 @@ performResumeActivity()          ← 这里回调 activity.onResume()
 > **`attach` 时 new `PhoneWindow`（Window 有了）→ `setContentView` 解析 XML（View 有了，但**还没连**）→ `onResume` 的 `handleResumeActivity` 里 `wm.addView(decor)`（**这才连上**）。**
 >
 > **委托链：`WindowManagerImpl` → `WindowManagerGlobal`（进程唯一）→ `new ViewRootImpl` → `setView()`。UI 的活全归 `ViewRootImpl`。**
+
+> 📌 **本篇文稿坑 5 处**：`PhoneWindow`、`ViewRootImpl`、`WindowManagerGlobal`、`DecorView`、`Activity` —— 见[口误表](../../../辅助稿/口误表.md#02-window-在哪个生命周期创建)
